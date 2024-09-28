@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "this" {
+resource "aws_s3_bucket" "sham-kitty" {
   bucket = var.bucket_name
   tags   = var.tags
 }
@@ -17,7 +17,7 @@ resource "aws_s3_bucket_versioning" "this" {
 }
 
 # Create a server-side encryption configuration for the bucket
-resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
+resource "aws_s3_bucket_server_side_encryption_configuration" "sham" {
   # create this resource only if var.sse_algorithm is not empty
   count = var.sse_algorithm != "" ? 1 : 0
 
@@ -83,7 +83,7 @@ resource "aws_s3_bucket_policy" "allow_access" {
 }
 
 
-resource "aws_kms_key" "custom_s3_kms_key" {
+resource "aws_kms_key" "sham_s3_kms_key" {
   count               = var.sse_algorithm == "aws:kms" ? 1 : 0
   description         = "Custom KMS key for s3 bucket encryption"
   enable_key_rotation = true
